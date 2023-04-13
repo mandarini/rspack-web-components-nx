@@ -51,6 +51,19 @@
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "bundler": "webpack",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css"
+      }
     }
   }
 }

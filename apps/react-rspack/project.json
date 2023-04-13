@@ -1,0 +1,67 @@
+{
+  "name": "react-rspack",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/react-rspack/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "outputPath": "dist/apps/react-rspack",
+        "main": "apps/react-rspack/src/main.tsx",
+        "tsConfig": "apps/react-rspack/tsconfig.app.json",
+        "rspackConfig": "apps/react-rspack/rspack.config.js",
+        "assets": [
+          "apps/react-rspack/src/favicon.ico",
+          "apps/react-rspack/src/assets"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production",
+          "optimization": true,
+          "sourceMap": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/rspack:dev-server",
+      "options": {
+        "buildTarget": "react-rspack:build:development"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "buildTarget": "react-rspack:build:production"
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/web:file-server",
+      "options": {
+        "buildTarget": "react-rspack:build"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/react-rspack/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

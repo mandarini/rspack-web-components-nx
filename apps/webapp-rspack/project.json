@@ -6,47 +6,38 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
+      "executor": "@nrwl/rspack:rspack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
+        "target": "web",
         "outputPath": "dist/apps/webapp-rspack",
-        "compiler": "babel",
         "main": "apps/webapp-rspack/src/main.ts",
         "tsConfig": "apps/webapp-rspack/tsconfig.app.json",
-        "webpackConfig": "apps/webapp-rspack/webpack.config.js",
+        "rspackConfig": "apps/webapp-rspack/rspack.config.js",
         "assets": [
           "apps/webapp-rspack/src/favicon.ico",
           "apps/webapp-rspack/src/assets"
-        ],
-        "index": "apps/webapp-rspack/src/index.html",
-        "baseHref": "/",
-        "styles": ["apps/webapp-rspack/src/styles.css"],
-        "scripts": []
+        ]
       },
       "configurations": {
+        "development": {
+          "mode": "development"
+        },
         "production": {
+          "mode": "production",
           "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "fileReplacements": [
-            {
-              "replace": "apps/webapp-rspack/src/environments/environment.ts",
-              "with": "apps/webapp-rspack/src/environments/environment.prod.ts"
-            }
-          ]
+          "sourceMap": false
         }
       }
     },
     "serve": {
-      "executor": "@nrwl/webpack:dev-server",
+      "executor": "@nrwl/rspack:dev-server",
       "options": {
-        "buildTarget": "webapp-rspack:build"
+        "buildTarget": "webapp-rspack:build:development"
       },
       "configurations": {
+        "development": {},
         "production": {
           "buildTarget": "webapp-rspack:build:production"
         }
